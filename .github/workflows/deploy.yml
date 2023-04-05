@@ -28,7 +28,7 @@ jobs:
           creds: ${{ secrets.AZURESPN }}
 
       - name: Run a sample command
-         run: az webapp list --query "[?state=='Running']"          
+        run: az webapp list --query "[?state=='Running']"          
       
       - name: Azure Dev Provision
         run: azd provision --no-prompt
