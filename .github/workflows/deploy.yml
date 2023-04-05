@@ -13,6 +13,11 @@ env:
   # specify your preferred region
   REGION: australiaeast
 
+  AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  AZURESPN: ${{ secrets.AZURESPN }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,9 +32,18 @@ jobs:
         with:
           creds: ${{ secrets.AZURESPN }}
 
-      - name: Run a sample command
-        run: az webapp list --query "[?state=='Running']"          
-      
+      - name: Log in with Azure (Client Credentials)
+        run: |
+          $info = $Env:AZURESPN | ConvertFrom-Json -AsHashtable;
+          Write-Host "::add-mask::$($info.clientSecret)"
+          azd login `
+            --client-id "$($info.clientId)" `
+            --client-secret "$($info.clientSecret)" `
+            --tenant-id "$($info.tenantId)"
+        shell: pwsh
+        env:
+          AZURESPN: ${{ secrets.AZURESPN }}
+
       - name: Azure Dev Provision
         run: azd provision --no-prompt
         env:
