@@ -19,6 +19,16 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
     tags: tags
 }
 
+module network 'network.bicep' = {
+    name: 'network'
+    scope: rg
+    params: {
+        location: location
+        resourceToken: resourceToken
+        tags: tags
+    }
+}
+
 module resources 'resources.bicep' = {
     name: 'resources'
     scope: rg
