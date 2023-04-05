@@ -1,3 +1,7 @@
+param location string
+param resourceToken string
+param tags object
+
 var abbrs = loadJsonContent('abbreviations.json')
 
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2021-05-01' = {
