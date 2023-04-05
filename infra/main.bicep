@@ -10,7 +10,7 @@ param name string
 param location string
 
 var resourceToken = toLower(uniqueString(subscription().id, name, location))
-var tags = { 'azd-env-name': name }
+var tags = { 'azd-env-name': name, 'Owner': 'Murtuza' }
 var abbrs = loadJsonContent('abbreviations.json')
 
 resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
