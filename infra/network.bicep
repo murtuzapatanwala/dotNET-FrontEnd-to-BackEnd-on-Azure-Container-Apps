@@ -21,7 +21,7 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2021-05-01' = {
         }
       }
       {
-        name: '${abbrs.networkVirtualNetworksSubnets}${networkApplicationGateways}${resourceToken}'
+        name: '${abbrs.networkVirtualNetworksSubnets}${abbrs.networkApplicationGateways}${resourceToken}'
         properties: {
           addressPrefix: '10.0.2.0/24'
         }
