@@ -1,11 +1,11 @@
 param location string
 param resourceToken string
-param tags object
+
 
 var abbrs = loadJsonContent('abbreviations.json')
 
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2021-05-01' = {
-  name: '${abbrs.networkVirtualNetworks}${name}'
+  name: '${abbrs.networkVirtualNetworks}${resourceToken}'
   location: location
   properties: {
     addressSpace: {
@@ -15,13 +15,13 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2021-05-01' = {
     }
     subnets: [
       {
-        name: '${abbrs.networkVirtualNetworksSubnets}${name}'
+        name: '${abbrs.networkVirtualNetworksSubnets}${resourceToken}'
         properties: {
           addressPrefix: '10.0.0.0/23'
         }
       }
       {
-        name: '${abbrs.networkVirtualNetworksSubnets}${networkApplicationGateways}${name}'
+        name: '${abbrs.networkVirtualNetworksSubnets}${networkApplicationGateways}${resourceToken}'
         properties: {
           addressPrefix: '10.0.2.0/24'
         }
