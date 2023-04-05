@@ -25,7 +25,6 @@ module network 'network.bicep' = {
     params: {
         location: location
         resourceToken: resourceToken
-        tags: tags
     }
 }
 
